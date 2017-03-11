@@ -32,7 +32,13 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
 
 intents.matches('CreateExpense', function (session, args, next) {
     var expensetype = builder.EntityRecognizer.findEntity(args.entities, 'ExpenseType');
-    session.send("I will create an expense report for your %s", expensetype.entity);
+    if (!expensetype) {
+        builder.Prompts.text(session, "What do you want to create the expense for?");
+    }
+
+    else {
+        session.send("I will create an expense report for your %s", expensetype.entity);
+    }    
 }); 
 
 intents.onDefault((session) => {
@@ -45,10 +51,13 @@ if (useEmulator) {
     var restify = require('restify');
     var server = restify.createServer();
     server.listen(3978, function() {
-        console.log('test bot endpont at http://localhost:3978/api/messages');
+        console.log('test bot endpoint at http://localhost:3978/api/messages');
     });
     server.post('/api/messages', connector.listen());    
 } else {
     module.exports = { default: connector.listen() }
+}
+
+function CreateExpense() {
 }
 
