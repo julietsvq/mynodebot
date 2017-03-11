@@ -32,15 +32,30 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
 
 intents.matches('CreateExpense',
     [function (session, args, next) {
+        session.dialogData.name = {};
+        session.dialogData.expensetype;
+
         var expensetype = builder.EntityRecognizer.findEntity(args.entities, 'ExpenseType');
-        session.dialogData.entity = expensetype;
-        builder.Prompts.text(session, "What name do you want to give the expense report?");
+        session.dialogData.expensetype = expensetype;
+
+        if (!expensetype)
+            builder.Prompts.text(session, "What do you want the expense for?");
     },
+
         function (session, results) {
             if (results.response) {
-                var expensename = results.response;
-                session.endDialog("I will create expense report \"%s\"for your %s", expensename, session.dialogData.entity.entity);
+                if (!session.dialogData.expensetype)
+                    session.dialogData.expensetype = results.response;
             }
+
+            builder.Prompts.text(session, "What name do you want to give the expense report?");
+        },
+
+        function (session, results) {
+            if (results.response)
+                var expensename = results.response;
+
+            session.endDialog("I will create expense report \"%s\" for your %s", expensename, session.dialogData.expensetype.entity);
         }]);
 
 intents.onDefault((session) => {
