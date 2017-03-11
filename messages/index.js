@@ -34,13 +34,12 @@ intents.matches('CreateExpense',
     [function (session, args, next) {
         var expensetype = builder.EntityRecognizer.findEntity(args.entities, 'ExpenseType');
         session.dialogData.entity = expensetype;
-        if (!expensetype)
-            builder.Prompts.text(session, "What name do you want to give the expense report?");
+        builder.Prompts.text(session, "What name do you want to give the expense report?");
     },
         function (session, results) {
             if (results.response) {
                 var expensename = results.response;
-                session.send("I will create expense report \"%s\"for your %s", expensename, session.dialogData.entity.entity);
+                session.endDialog("I will create expense report \"%s\"for your %s", expensename, session.dialogData.entity.entity);
             }
         }]);
 
