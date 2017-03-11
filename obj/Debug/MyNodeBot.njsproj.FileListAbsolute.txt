@@ -1,0 +1,2 @@
+C:\Users\jmoreiro\Desktop\DEV\MyNodeBot\obj\Debug\MyNodeBot.njsprojResolveAssemblyReference.cache
+C:\Users\jmoreiro\Desktop\DEV\MyNodeBot\bin\Microsoft.NodejsTools.WebRole.dll

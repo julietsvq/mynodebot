@@ -29,11 +29,11 @@ const LuisModelUrl = 'https://' + luisAPIHostName + '/luis/v1/application?id=' +
 // Main dialog with LUIS
 var recognizer = new builder.LuisRecognizer(LuisModelUrl);
 var intents = new builder.IntentDialog({ recognizers: [recognizer] })
-/*
-.matches('<yourIntent>')... See details at http://docs.botframework.com/builder/node/guides/understanding-natural-language/
-*/
-.onDefault((session) => {
-    session.send('Sorry, I did not understand \'%s\'.', session.message.text);
+
+dialog.matches('CreateExpense', "Hi, so you want to create an expense for %s", builder.EntityRecognizer.findEntity(args.entities, 'ExpenseType'));
+
+dialog.onDefault((session) => {
+    session.send('I\'m too dumb to process that yet \'%s\'.', session.message.text);
 });
 
 bot.dialog('/', intents);    
