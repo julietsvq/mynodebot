@@ -30,30 +30,32 @@ const LuisModelUrl = 'https://' + luisAPIHostName + '/luis/v1/application?id=' +
 var recognizer = new builder.LuisRecognizer(LuisModelUrl);
 var intents = new builder.IntentDialog({ recognizers: [recognizer] })
 
-intents.matches('CreateExpense', function (session, args, next) {
-    var expensetype = builder.EntityRecognizer.findEntity(args.entities, 'ExpenseType');
-    if (!expensetype) {
-        builder.Prompts.text(session, "What do you want to create the expense for?");
-    }
-
-    else {
-        session.send("I will create an expense report for your %s", expensetype.entity);
-    }    
-}); 
+intents.matches('CreateExpense',
+    [function (session, args, next) {
+        var expensetype = builder.EntityRecognizer.findEntity(args.entities, 'ExpenseType');
+        if (!expensetype) {
+            builder.Prompts.text(session, "What do you want to create the expense for?");
+        }
+    },
+        function (session, args, next) {
+            expensetype = builder.EntityRecognizer.findEntity(args.entities, 'ExpenseType');
+            session.send("I will create an expense report for your %s", expensetype.entity);
+        }
+    ]);
 
 intents.onDefault((session) => {
     session.send("I'm too dumb to process %s.", session.message.text);
 });
 
-bot.dialog('/', intents);    
+bot.dialog('/', intents);
 
 if (useEmulator) {
     var restify = require('restify');
     var server = restify.createServer();
-    server.listen(3978, function() {
+    server.listen(3978, function () {
         console.log('test bot endpoint at http://localhost:3978/api/messages');
     });
-    server.post('/api/messages', connector.listen());    
+    server.post('/api/messages', connector.listen());
 } else {
     module.exports = { default: connector.listen() }
 }
