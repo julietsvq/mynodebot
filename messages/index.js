@@ -32,7 +32,7 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
 
 intents.matches('CreateExpense', function (session, args, next) {
     var expensetype = builder.EntityRecognizer.findEntity(args.entities, 'ExpenseType');
-    session.send("I will create an expense report for your %s", expensetype);
+    session.send("I will create an expense report for your %s", expensetype.entity);
 }); 
 
 intents.onDefault((session) => {
