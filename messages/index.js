@@ -32,7 +32,7 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
 
 //dialog.matches('CreateExpense', "Hi, so you want to create an expense for %s", builder.EntityRecognizer.findEntity(args.entities, 'ExpenseType'));
 
-dialog.onDefault((session) => {
+.onDefault((session) => {
     session.send('I\'m too dumb to process that yet \'%s\'.', session.message.text);
 });
 
