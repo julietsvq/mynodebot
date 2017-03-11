@@ -32,11 +32,11 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
 
 intents.matches('CreateExpense', function (session, args, next) {
     var expensetype = builder.EntityRecognizer.findEntity(args.entities, 'ExpenseType');
-    session.send(expensetype);
+    session.send("I will create an expense report for your %s", expensetype);
 }); 
 
 intents.onDefault((session) => {
-    session.send('I\'m too dumb to process \'%s\'.', session.message.text);
+    session.send("I'm too dumb to process %s.", session.message.text);
 });
 
 bot.dialog('/', intents);    
