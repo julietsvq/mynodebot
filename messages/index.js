@@ -30,7 +30,7 @@ const LuisModelUrl = 'https://' + luisAPIHostName + '/luis/v1/application?id=' +
 var recognizer = new builder.LuisRecognizer(LuisModelUrl);
 var intents = new builder.IntentDialog({ recognizers: [recognizer] })
 
-dialog.matches('CreateExpense', "Hi, so you want to create an expense for %s", builder.EntityRecognizer.findEntity(args.entities, 'ExpenseType'));
+//dialog.matches('CreateExpense', "Hi, so you want to create an expense for %s", builder.EntityRecognizer.findEntity(args.entities, 'ExpenseType'));
 
 dialog.onDefault((session) => {
     session.send('I\'m too dumb to process that yet \'%s\'.', session.message.text);
