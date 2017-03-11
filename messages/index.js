@@ -33,7 +33,7 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
 intents.matches('CreateExpense',
     [function (session, args, next) {
         session.dialogData.name = {};
-        session.dialogData.expensetype;
+        session.dialogData.expensetype = {};
 
         var expensetype = builder.EntityRecognizer.findEntity(args.entities, 'ExpenseType');
         session.dialogData.expensetype = expensetype;
