@@ -42,7 +42,7 @@ intents.matches('CreateExpense',
 
         function (session, results) {
             if (results.response) {
-                    var expensetype = builder.EntityRecognizer.findEntity(results.response.entities, 'ExpenseType');
+                    var expensetype = builder.EntityRecognizer.findEntity([results.response].entities, 'ExpenseType');
                     session.dialogData.entity = expensetype;
             }
 
