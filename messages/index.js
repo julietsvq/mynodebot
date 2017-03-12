@@ -34,27 +34,27 @@ intents.matches('CreateExpense',
     function (session, args, next) {
 
         var expensetype = builder.EntityRecognizer.findEntity(args.entities, 'ExpenseType');
-        //session.dialogData.entity = expensetype;
+        session.dialogData.entity = expensetype;
 
-        //if (!expensetype)
-        //    builder.Prompts.text(session, "What do you want the expense for?");
-    //},
+        if (!expensetype)
+            builder.Prompts.text(session, "What do you want the expense for?");
+    },
 
-        //function (session, results) {
-        //    //if (results.response) {
-        //    //        var expensetype = builder.EntityRecognizer.findEntity([results.response].entities, 'ExpenseType');
-        //    //        session.dialogData.entity = expensetype;
-        //    //}
+    function (session, results) {
+        if (results.response) {
+                var expensetype = builder.EntityRecognizer.findEntity([results.response].entities, 'ExpenseType');
+                session.dialogData.entity = expensetype;
+        }
 
-        //    builder.Prompts.text(session, "What name do you want to give the expense report? for type %", session.dialogData.entity.entity);
-        //},
+        builder.Prompts.text(session, "What name do you want to give the expense report? for type %", session.dialogData.entity.entity);
+    },
 
-        //function (session, results) {
-        //    if (results.response)
-        //        var expensename = results.response;
+    function (session, results) {
+        if (results.response)
+            var expensename = results.response;
 
-        session.send("I will create expense report \"%s\" for your %s", expensename, expensetype);
-        });
+        session.send("I will create expense report for your %s", expensetype);
+    });
 
 intents.onDefault((session) => {
     session.send("I'm too dumb to process %s.", session.message.text);
