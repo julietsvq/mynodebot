@@ -36,18 +36,18 @@ intents.matches('CreateExpense',
         var expensetype = builder.EntityRecognizer.findEntity(args.entities, 'ExpenseType');
         session.dialogData.entity = expensetype;
 
-        if (!expensetype)
-            builder.Prompts.text(session, "What do you want the expense for?");
+        //if (!expensetype)
+        //    builder.Prompts.text(session, "What do you want the expense for?");
     },
 
-        function (session, results) {
-            //if (results.response) {
-            //        var expensetype = builder.EntityRecognizer.findEntity([results.response].entities, 'ExpenseType');
-            //        session.dialogData.entity = expensetype;
-            //}
+        //function (session, results) {
+        //    //if (results.response) {
+        //    //        var expensetype = builder.EntityRecognizer.findEntity([results.response].entities, 'ExpenseType');
+        //    //        session.dialogData.entity = expensetype;
+        //    //}
 
-            builder.Prompts.text(session, "What name do you want to give the expense report? for type %", session.dialogData.entity.entity);
-        },
+        //    builder.Prompts.text(session, "What name do you want to give the expense report? for type %", session.dialogData.entity.entity);
+        //},
 
         function (session, results) {
             if (results.response)
