@@ -48,7 +48,7 @@ intents.matches('CreateExpense',
                 }
             }
 
-            builder.Prompts.text(session, "What name do you want to give the expense report?");
+            builder.Prompts.text(session, "What name do you want to give the expense report? for type %", session.dialogData.entity.entity);
         },
 
         function (session, results) {
