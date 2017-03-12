@@ -31,7 +31,7 @@ var recognizer = new builder.LuisRecognizer(LuisModelUrl);
 var intents = new builder.IntentDialog({ recognizers: [recognizer] })
 
 intents.matches('CreateExpense',
-    [function (session, args, next) {
+    function (session, args, next) {
 
         var expensetype = builder.EntityRecognizer.findEntity(args.entities, 'ExpenseType');
         //session.dialogData.entity = expensetype;
@@ -53,8 +53,8 @@ intents.matches('CreateExpense',
         //    if (results.response)
         //        var expensename = results.response;
 
-        session.endDialog("I will create expense report \"%s\" for your %s", expensename, expensetype);
-        }]);
+        session.send("I will create expense report \"%s\" for your %s", expensename, expensetype);
+        });
 
 intents.onDefault((session) => {
     session.send("I'm too dumb to process %s.", session.message.text);
