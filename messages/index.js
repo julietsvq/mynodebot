@@ -42,10 +42,8 @@ intents.matches('CreateExpense',
 
         function (session, results) {
             if (results.response) {
-                if (!session.dialogData.entity) {
                     var expensetype = builder.EntityRecognizer.findEntity(results.response.entities, 'ExpenseType');
                     session.dialogData.entity = expensetype;
-                }
             }
 
             builder.Prompts.text(session, "What name do you want to give the expense report? for type %", session.dialogData.entity.entity);
